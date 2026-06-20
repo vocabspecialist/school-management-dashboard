@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Management Dashboard</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                <h1>EduManage</h1>
+            </div>
+            <nav class="nav-menu">
+                <a href="#dashboard" class="nav-link active" data-tab="dashboard">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#students" class="nav-link" data-tab="students">
+                    <i class="fas fa-users"></i>
+                    <span>Students</span>
+                </a>
+                <a href="#teachers" class="nav-link" data-tab="teachers">
+                    <i class="fas fa-chalkboard-user"></i>
+                    <span>Teachers</span>
+                </a>
+                <a href="#attendance" class="nav-link" data-tab="attendance">
+                    <i class="fas fa-clipboard-list"></i>
+                    <span>Attendance</span>
+                </a>
+                <a href="#notices" class="nav-link" data-tab="notices">
+                    <i class="fas fa-bell"></i>
+                    <span>Notices</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-left">
+                    <button class="menu-toggle" id="menuToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h2 id="pageTitle">Dashboard</h2>
+                </div>
+                <div class="header-right">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="searchInput" placeholder="Search...">
+                    </div>
+                    <div class="user-profile">
+                        <img src="https://via.placeholder.com/40" alt="User">
+                        <span>Admin</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Tab -->
+            <section id="dashboard" class="tab-content active">
+                <div class="dashboard-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #e3f2fd;">
+                            <i class="fas fa-users" style="color: #1976d2;"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Total Students</h3>
+                            <p class="stat-number" id="totalStudents">0</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #f3e5f5;">
+                            <i class="fas fa-chalkboard-user" style="color: #7b1fa2;"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Total Teachers</h3>
+                            <p class="stat-number" id="totalTeachers">0</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #e8f5e9;">
+                            <i class="fas fa-check-circle" style="color: #388e3c;"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Present Today</h3>
+                            <p class="stat-number" id="presentToday">0</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: #fff3e0;">
+                            <i class="fas fa-bullhorn" style="color: #f57c00;"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Notices</h3>
+                            <p class="stat-number" id="totalNotices">0</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="dashboard-content">
+                    <div class="recent-activity">
+                        <h3>Recent Attendance</h3>
+                        <div id="recentAttendance" class="activity-list">
+                            <!-- Populated by JavaScript -->
+                        </div>
+                    </div>
+                    <div class="latest-notices">
+                        <h3>Latest Notices</h3>
+                        <div id="latestNotices" class="notices-list">
+                            <!-- Populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Students Tab -->
+            <section id="students" class="tab-content">
+                <div class="section-header">
+                    <h2>Student Management</h2>
+                    <button class="btn btn-primary" id="addStudentBtn">
+                        <i class="fas fa-plus"></i> Add Student
+                    </button>
+                </div>
+                <div class="filter-controls">
+                    <input type="text" id="studentSearch" placeholder="Search students..." class="search-input">
+                    <select id="classFilter" class="select-input">
+                        <option value="">All Classes</option>
+                        <option value="Class A">Class A</option>
+                        <option value="Class B">Class B</option>
+                        <option value="Class C">Class C</option>
+                    </select>
+                </div>
+                <div id="studentsList" class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Roll No</th>
+                                <th>Name</th>
+                                <th>Class</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="studentsTableBody">
+                            <!-- Populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Teachers Tab -->
+            <section id="teachers" class="tab-content">
+                <div class="section-header">
+                    <h2>Teacher Management</h2>
+                    <button class="btn btn-primary" id="addTeacherBtn">
+                        <i class="fas fa-plus"></i> Add Teacher
+                    </button>
+                </div>
+                <div class="filter-controls">
+                    <input type="text" id="teacherSearch" placeholder="Search teachers..." class="search-input">
+                    <select id="departmentFilter" class="select-input">
+                        <option value="">All Departments</option>
+                        <option value="Mathematics">Mathematics</option>
+                        <option value="Science">Science</option>
+                        <option value="English">English</option>
+                        <option value="History">History</option>
+                    </select>
+                </div>
+                <div id="teachersList" class="teacher-grid">
+                    <!-- Populated by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Attendance Tab -->
+            <section id="attendance" class="tab-content">
+                <div class="section-header">
+                    <h2>Attendance Management</h2>
+                    <button class="btn btn-primary" id="markAttendanceBtn">
+                        <i class="fas fa-plus"></i> Mark Attendance
+                    </button>
+                </div>
+                <div class="filter-controls">
+                    <input type="date" id="attendanceDate" class="search-input">
+                    <select id="attendanceClassFilter" class="select-input">
+                        <option value="">All Classes</option>
+                        <option value="Class A">Class A</option>
+                        <option value="Class B">Class B</option>
+                        <option value="Class C">Class C</option>
+                    </select>
+                </div>
+                <div id="attendanceList" class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Roll No</th>
+                                <th>Name</th>
+                                <th>Class</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="attendanceTableBody">
+                            <!-- Populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Notices Tab -->
+            <section id="notices" class="tab-content">
+                <div class="section-header">
+                    <h2>Notice Board</h2>
+                    <button class="btn btn-primary" id="addNoticeBtn">
+                        <i class="fas fa-plus"></i> Post Notice
+                    </button>
+                </div>
+                <div class="filter-controls">
+                    <input type="text" id="noticeSearch" placeholder="Search notices..." class="search-input">
+                </div>
+                <div id="noticesList" class="notices-grid">
+                    <!-- Populated by JavaScript -->
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <!-- Student Modal -->
+    <div id="studentModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="studentModalTitle">Add Student</h2>
+                <button class="modal-close" data-modal="studentModal">&times;</button>
+            </div>
+            <form id="studentForm" class="form">
+                <div class="form-group">
+                    <label for="studentName">Name</label>
+                    <input type="text" id="studentName" required>
+                </div>
+                <div class="form-group">
+                    <label for="studentClass">Class</label>
+                    <select id="studentClass" required>
+                        <option value="">Select Class</option>
+                        <option value="Class A">Class A</option>
+                        <option value="Class B">Class B</option>
+                        <option value="Class C">Class C</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="studentEmail">Email</label>
+                    <input type="email" id="studentEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="studentPhone">Phone</label>
+                    <input type="tel" id="studentPhone" required>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-secondary" data-modal="studentModal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Teacher Modal -->
+    <div id="teacherModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="teacherModalTitle">Add Teacher</h2>
+                <button class="modal-close" data-modal="teacherModal">&times;</button>
+            </div>
+            <form id="teacherForm" class="form">
+                <div class="form-group">
+                    <label for="teacherName">Name</label>
+                    <input type="text" id="teacherName" required>
+                </div>
+                <div class="form-group">
+                    <label for="teacherDepartment">Department</label>
+                    <select id="teacherDepartment" required>
+                        <option value="">Select Department</option>
+                        <option value="Mathematics">Mathematics</option>
+                        <option value="Science">Science</option>
+                        <option value="English">English</option>
+                        <option value="History">History</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="teacherEmail">Email</label>
+                    <input type="email" id="teacherEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="teacherPhone">Phone</label>
+                    <input type="tel" id="teacherPhone" required>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-secondary" data-modal="teacherModal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Attendance Modal -->
+    <div id="attendanceModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Mark Attendance</h2>
+                <button class="modal-close" data-modal="attendanceModal">&times;</button>
+            </div>
+            <form id="attendanceForm" class="form">
+                <div class="form-group">
+                    <label for="attendanceStudent">Student</label>
+                    <select id="attendanceStudent" required>
+                        <option value="">Select Student</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="attendanceDate2">Date</label>
+                    <input type="date" id="attendanceDate2" required>
+                </div>
+                <div class="form-group">
+                    <label for="attendanceStatus">Status</label>
+                    <select id="attendanceStatus" required>
+                        <option value="Present">Present</option>
+                        <option value="Absent">Absent</option>
+                        <option value="Leave">Leave</option>
+                    </select>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-secondary" data-modal="attendanceModal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Notice Modal -->
+    <div id="noticeModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Post Notice</h2>
+                <button class="modal-close" data-modal="noticeModal">&times;</button>
+            </div>
+            <form id="noticeForm" class="form">
+                <div class="form-group">
+                    <label for="noticeTitle">Title</label>
+                    <input type="text" id="noticeTitle" required>
+                </div>
+                <div class="form-group">
+                    <label for="noticeContent">Content</label>
+                    <textarea id="noticeContent" rows="5" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="noticeCategory">Category</label>
+                    <select id="noticeCategory" required>
+                        <option value="General">General</option>
+                        <option value="Academic">Academic</option>
+                        <option value="Event">Event</option>
+                        <option value="Holiday">Holiday</option>
+                    </select>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Post</button>
+                    <button type="button" class="btn btn-secondary" data-modal="noticeModal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/data.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/ui.js"></script>
+</body>
+</html>
